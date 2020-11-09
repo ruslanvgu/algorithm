@@ -10,4 +10,5 @@ SUBDIRS += \
     LinearSearch \
     MergeSort \
     QuickSort \
-    ShakerSort
+    ShakerSort \
+    StandartAlgorithm

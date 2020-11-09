@@ -13,7 +13,6 @@ void sort(int * mass, int size)
     chrono::time_point<chrono::steady_clock> b = chrono::steady_clock::now();
     while(flag){
         flag = false;
-
         for(int i=0; i < n; i++)
             if(mass[i] > mass[i+1]){
                 int temp = mass[i+1];
@@ -23,9 +22,7 @@ void sort(int * mass, int size)
                 k=i;
             }
         n=k;
-
     }
-
     chrono::time_point<chrono::steady_clock> e = chrono::steady_clock::now();
     cout << endl << "Time: "<<chrono::duration_cast<chrono::milliseconds>(e-b).count() << endl;
 
@@ -33,11 +30,10 @@ void sort(int * mass, int size)
 
 int main(int argc, char *argv[])
 {
-
     string s_size;
     srand(time(NULL));
     while(1){
-        cout <<endl;
+        cout << endl;
         cout << "BubbleSort" << endl;
         cout << "Input massive size: ";
         try{

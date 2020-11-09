@@ -1,3 +1,9 @@
+///Бинарный поиск — очень быстрый алгоритм с не сложной реализацией,
+///который находит элемент с определенным значением в уже отсортированном массиве.
+///Очень важно помнить! Алгоритм будет работать правильно, только с отсортированным массивом.
+///А если по случайности вы забыли отсортировать массив перед его использованием, то в
+///большинстве случаев тот ответ, который подсчитал алгоритм, будет неверным.
+///O(log n)
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -8,11 +14,9 @@
 #include <vector>
 #include <chrono>
 #include <thread>
-#include <omp.h>
 #include <parallel/algorithm>
 
 using namespace  std;
-
 
 bool BinarySearch(int *mass, int size, int num){
 
@@ -28,25 +32,30 @@ bool BinarySearch(int *mass, int size, int num){
         if(num < mass[mid]) pEnd = mid-1;
         else if(num > mass[mid]) pBeg = mid+1;
         else if(num == mass[mid]) return true;
-        else return false;
-    }
 
+    }
+    return  false;
 }
 
 int main(int argc, char *argv[])
 {
-
     string size, s_num;
-    int *mass;
-    srand(time(NULL)); //инициализация генератора случайных чисел rand
+    int *mass = nullptr;
+
 
     while(1){
         try{
+
             cout << "BinarySearch" << endl;
             cout << "Input size massive: ";
+
             getline(std::cin, size);
             int s_mass = stoi(size);
+
+            if(s_mass > 10000) throw std::out_of_range("More 10000");
+
             mass = new int[s_mass];
+             srand(time(NULL)); //инициализация генератора случайных чисел rand
             for(int i = 0; i < s_mass; i++){
                 mass[i] = rand() % 50;
             }
@@ -75,17 +84,20 @@ int main(int argc, char *argv[])
             (flag == true) ? cout << "Find success" <<endl : cout << "Find unsuccess" <<endl;
             cout << "Time: " << timeDuration <<" milisec"<<endl;
 
+            delete[] mass;
         }
         catch(std::invalid_argument &e)
         {
             cout << "Error input: " << e.what() << endl;
+            if(mass) delete[] mass;
+            return 1;
         }
         catch(std::out_of_range &e)
         {
             cout << "Error input: " << e.what() << endl;
+            if(mass) delete[] mass;
+            return 1;
         }
-        delete mass;
-
     }
     return 0;
 }
